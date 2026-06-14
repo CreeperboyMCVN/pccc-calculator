@@ -1,0 +1,30 @@
+{
+  "source": "long.docx",
+  "description": "Diễn biến và thông số đám cháy - Phòng máy chủ",
+  "params": {
+    "tbc": { "value": 3, "unit": "phút", "desc": "Thời gian từ khi cháy đến khi phát hiện" },
+    "tcb": { "value": 2, "unit": "phút", "desc": "Thời gian chuẩn bị xuất xe" },
+    "ttk": { "value": 2, "unit": "phút", "desc": "Thời gian triển khai lực lượng, phương tiện" },
+    "distL": { "value": 1.3, "unit": "km", "desc": "Quãng đường từ Phòng CSPCCC&CNCH tới đám cháy" },
+    "vxe": { "value": 60, "unit": "km/h", "desc": "Vận tốc trung bình xe chữa cháy" },
+    "vl": { "value": 1.2, "unit": "m/phút", "desc": "Vận tốc lan truyền ngọn lửa (nhựa tổng hợp, giấy, vải)" },
+    "fdc": { "value": 80, "unit": "m²", "desc": "Diện tích đám cháy (02 phòng: phòng máy chủ + phòng làm việc)" },
+    "ict": { "value": 0.1, "unit": "l/s.m²", "desc": "Cường độ phun nước cần thiết để dập tắt đám cháy" },
+    "ql": { "value": 3.5, "unit": "l/s", "desc": "Lưu lượng phun của 01 lăng B" },
+    "nlPerTruck": { "value": 4, "unit": "lăng/xe", "desc": "Số lăng B tối đa mỗi xe chữa cháy" }
+  },
+  "results": {
+    "ttd": { "value": 1.3, "unit": "phút", "formula": "L×60/Vxe = 1.3×60/60" },
+    "ttdTotal": { "value": 8.3, "unit": "phút", "formula": "Tbc+Tcb+Ttđ+Ttk = 3+2+1.3+2" },
+    "rl": { "value": 15.96, "unit": "m", "formula": "0.5×min(Ttd,10)×Vl + Ttd×Vl = 0.5×10×1.2 + 8.3×1.2" },
+    "fcc": { "value": 80, "unit": "m²", "formula": "Fcc = Fđc" },
+    "qct": { "value": 8, "unit": "l/s", "formula": "Fcc×ict = 80×0.1" },
+    "nl": { "value": 3, "unit": "lăng B", "formula": "Qct/ql = 8/3.5 → làm tròn lên" },
+    "ntruck": { "value": 1, "unit": "xe", "formula": "NL/nl = 3/4 → làm tròn lên" },
+    "nteam": { "value": 1, "unit": "tổ", "formula": "Nt = Nccxe" },
+    "qlm": { "value": 4, "unit": "l/s", "formula": "0.5×Qct = 0.5×8" },
+    "nlmNozzle": { "value": 1, "unit": "lăng B", "formula": "Qlm/ql = 2/3.5 → làm tròn lên" },
+    "nlmTruck": { "value": 1, "unit": "xe", "formula": "NlmNozzle/nl → làm tròn lên" },
+    "nlmTeam": { "value": 1, "unit": "tổ", "formula": "Nt làm mát = Nlm xe" }
+  }
+}
