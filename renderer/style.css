@@ -88,17 +88,22 @@ header h1 {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 14px;
+  align-items: start;
 }
 
 .field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .field label {
   font-size: 0.85rem;
   color: #aaa;
+  line-height: 1.4;
+  min-height: 2.6em;
+  display: flex;
+  align-items: flex-end;
 }
 
 .field label sub {
@@ -134,11 +139,18 @@ header h1 {
   background: rgba(233, 69, 96, 0.08);
   border-radius: 10px;
   padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .result-field label {
   color: #4ecca3;
   font-weight: 600;
+  line-height: 1.4;
+  min-height: 2.6em;
+  display: flex;
+  align-items: flex-end;
 }
 
 .result-field label span {
@@ -211,4 +223,361 @@ footer {
 ::-webkit-scrollbar-thumb {
   background: #e94560;
   border-radius: 4px;
+}
+
+/* Header buttons */
+.header-actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn-doc {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-doc:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.btn-apply {
+  background: #4ecca3;
+  color: #1a1a2e;
+}
+
+.btn-apply:hover {
+  background: #3db88a;
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ccc;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.btn-export {
+  background: #f0a500;
+  color: #1a1a2e;
+}
+
+.btn-export:hover {
+  background: #d49200;
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+.overlay-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+}
+
+.overlay-panel {
+  position: relative;
+  background: #1a1a2e;
+  border: 1px solid rgba(233, 69, 96, 0.3);
+  border-radius: 16px;
+  width: 90vw;
+  max-width: 750px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 16px 64px rgba(0, 0, 0, 0.5);
+  animation: slideIn 0.25s ease-out;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.overlay-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(233, 69, 96, 0.2);
+}
+
+.overlay-header h2 {
+  color: #e94560;
+  font-size: 1.2rem;
+}
+
+.btn-close {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 1.3rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.btn-close:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.overlay-body {
+  padding: 20px 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.overlay-footer {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  padding: 16px 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.loading-text {
+  color: #888;
+  text-align: center;
+  padding: 40px;
+}
+
+/* Document preview tables */
+.doc-section {
+  margin-bottom: 20px;
+}
+
+.doc-section h3 {
+  color: #f0a500;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(240, 165, 0, 0.2);
+}
+
+.doc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.doc-table th,
+.doc-table td {
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.doc-table th {
+  color: #888;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.doc-table td {
+  color: #ccc;
+}
+
+.doc-table .val-col {
+  text-align: right;
+  color: #4ecca3;
+  font-weight: 600;
+  font-family: 'Courier New', monospace;
+}
+
+.doc-table .unit-col {
+  color: #888;
+  font-size: 0.85rem;
+}
+
+.doc-table .formula-col {
+  color: #f0a500;
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  max-width: 280px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.doc-table tr:hover td {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.doc-error {
+  color: #e94560;
+  text-align: center;
+  padding: 20px;
+}
+
+/* ---- Overlay Tabs ---- */
+.overlay-tabs {
+  display: flex;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0 24px;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.tab-btn {
+  padding: 12px 20px;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: #888;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tab-btn:hover {
+  color: #ccc;
+}
+
+.tab-btn.active {
+  color: #e94560;
+  border-bottom-color: #e94560;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* ---- Docx Preview ---- */
+.docx-preview {
+  color: #d0d0d0;
+  font-size: 0.9rem;
+  line-height: 1.8;
+}
+
+.docx-preview h2 {
+  color: #e94560;
+  font-size: 1.1rem;
+  margin: 16px 0 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(233, 69, 96, 0.2);
+}
+
+.docx-preview h3 {
+  color: #f0a500;
+  font-size: 1rem;
+  margin: 14px 0 8px;
+}
+
+.docx-preview p {
+  margin-bottom: 10px;
+  text-align: justify;
+}
+
+.docx-preview em {
+  color: #999;
+  font-style: italic;
+}
+
+.docx-preview strong {
+  color: #f0a500;
+}
+
+.docx-preview ul, .docx-preview ol {
+  margin: 8px 0 12px 24px;
+}
+
+.docx-preview li {
+  margin-bottom: 4px;
+}
+
+.docx-preview table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 0.85rem;
+}
+
+.docx-preview table td,
+.docx-preview table th {
+  padding: 6px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: left;
+}
+
+.docx-preview table th {
+  background: rgba(233, 69, 96, 0.1);
+  color: #e94560;
+}
+
+/* ---- Highlight Marks ---- */
+mark.hl-param {
+  background: rgba(78, 204, 163, 0.25);
+  color: #4ecca3;
+  border-radius: 3px;
+  padding: 1px 3px;
+  font-weight: 600;
+}
+
+mark.hl-result {
+  background: rgba(240, 165, 0, 0.25);
+  color: #f0a500;
+  border-radius: 3px;
+  padding: 1px 3px;
+  font-weight: 600;
+}
+
+mark.hl-time {
+  background: rgba(147, 112, 219, 0.25);
+  color: #9370db;
+  border-radius: 3px;
+  padding: 1px 3px;
+  font-weight: 600;
+}
+
+mark.hl-calc {
+  background: rgba(233, 69, 96, 0.2);
+  color: #e94560;
+  border-radius: 3px;
+  padding: 1px 3px;
+  font-weight: 600;
 }

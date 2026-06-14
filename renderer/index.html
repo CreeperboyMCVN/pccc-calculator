@@ -12,6 +12,17 @@
     <header>
       <h1>🚒 PCCC Calculator</h1>
       <p class="subtitle">Tính toán lực lượng, phương tiện chữa cháy và cứu nạn, cứu hộ</p>
+      <div class="header-actions">
+        <button id="btnLoadDoc" class="btn btn-doc" title="Xem thông số từ tài liệu gốc">
+          📄 Xem thông số từ tài liệu
+        </button>
+        <button id="btnApplyDoc" class="btn btn-apply" title="Áp dụng thông số từ tài liệu vào form">
+          📥 Áp dụng
+        </button>
+        <button id="btnExportDocx" class="btn btn-export" title="Xuất báo cáo ra file Word">
+          💾 Xuất báo cáo DOCX
+        </button>
+      </div>
     </header>
 
     <!-- Section 1: Free Burning Time -->
@@ -175,5 +186,44 @@
   </div>
 
   <script src="calculator.js"></script>
+
+  <!-- Preview / Export Overlay -->
+  <div id="docOverlay" class="overlay hidden">
+    <div class="overlay-backdrop"></div>
+    <div class="overlay-panel">
+      <div class="overlay-header">
+        <h2 id="overlayTitle">📄 Xem trước tài liệu</h2>
+        <button id="btnCloseOverlay" class="btn-close" title="Đóng">✕</button>
+      </div>
+      <div class="overlay-tabs">
+        <button class="tab-btn active" data-tab="tab-doc-preview">📄 Tài liệu gốc</button>
+        <button class="tab-btn" data-tab="tab-export-preview">📝 Xem trước xuất</button>
+        <button class="tab-btn" data-tab="tab-doc-data">📊 Dữ liệu trích xuất</button>
+      </div>
+      <div class="overlay-body">
+        <div class="tab-content active" id="tab-doc-preview">
+          <div id="docPreviewContent" class="docx-preview">
+            <p class="loading-text">Đang tải tài liệu...</p>
+          </div>
+        </div>
+        <div class="tab-content" id="tab-export-preview">
+          <div id="exportPreviewContent" class="docx-preview">
+            <p class="loading-text">Đang tạo xem trước...</p>
+          </div>
+        </div>
+        <div class="tab-content" id="tab-doc-data">
+          <div id="overlayBody">
+            <p class="loading-text">Đang tải dữ liệu từ tài liệu...</p>
+          </div>
+        </div>
+      </div>
+      <div class="overlay-footer">
+        <button id="btnApplyFromOverlay" class="btn btn-apply">📥 Áp dụng thông số vào form</button>
+        <button id="btnExportFromOverlay" class="btn btn-export">💾 Xuất file DOCX</button>
+        <button id="btnCloseOverlay2" class="btn btn-secondary">Đóng</button>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>

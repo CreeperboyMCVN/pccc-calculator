@@ -1,6 +1,6 @@
 {
   "name": "pccc-calculator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "PCCC Calculator - Tính toán lực lượng, phương tiện chữa cháy",
   "license": "ISC",
   "author": "",
@@ -18,11 +18,19 @@
     "appId": "com.pfl.pccc-calculator",
     "productName": "PCCC Calculator",
     "win": {
-      "target": ["nsis", "portable"]
+      "target": [
+        "nsis",
+        "portable"
+      ]
     },
     "linux": {
-      "target": ["AppImage"],
+      "target": [
+        "AppImage"
+      ],
       "category": "Utility"
     }
+  },
+  "dependencies": {
+    "mammoth": "^1.12.0"
   }
 }

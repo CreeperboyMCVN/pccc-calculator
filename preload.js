@@ -1,5 +1,15 @@
-const { contextBridge } = require('electron');
+const { contextBridge, ipcRenderer } = require('electron');
 
-// Expose nothing to renderer — all calculations are done in the renderer
-// This preload exists for security best practices
-contextBridge.exposeInMainWorld('appVersion', '1.0.0');
+contextBridge.exposeInMainWorld('docAPI', {
+  // Load the bundled JSON data from the document
+  loadDocumentData: () => ipcRenderer.invoke('load-document-data'),
+  // Re-parse the original .docx file via Python
+  parseDocx: () => ipcRenderer.invoke('parse-docx'),
+  // Render the .docx file as HTML with highlighted values
+  renderDocx: () => ipcRenderer.invoke('render-docx'),
+  // Show save dialog and export .docx
+  showSaveDialog: (defaultName) => ipcRenderer.invoke('save-dialog', defaultName),
+  exportDocx: (data) => ipcRenderer.invoke('export-docx', data),
+});
+
+contextBridge.exposeInMainWorld('appVersion', '1.0.1');
