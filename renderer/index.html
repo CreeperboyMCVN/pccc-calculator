@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'">
+  <title>PCCC Calculator - Tính toán chữa cháy</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🚒 PCCC Calculator</h1>
+      <p class="subtitle">Tính toán lực lượng, phương tiện chữa cháy và cứu nạn, cứu hộ</p>
+    </header>
+
+    <!-- Section 1: Free Burning Time -->
+    <section class="card">
+      <h2>1. Thời gian cháy tự do (T<sub>td</sub>)</h2>
+      <p class="formula">T<sub>td</sub> = T<sub>bc</sub> + T<sub>cb</sub> + T<sub>tđ</sub> + T<sub>tk</sub> (phút)</p>
+      <div class="form-grid">
+        <div class="field">
+          <label>T<sub>bc</sub> - Thời gian từ khi cháy đến khi phát hiện (phút)</label>
+          <input type="number" id="tbc" value="3" step="0.1" min="0">
+        </div>
+        <div class="field">
+          <label>T<sub>cb</sub> - Thời gian chuẩn bị xuất xe (phút)</label>
+          <input type="number" id="tcb" value="2" step="0.1" min="0">
+        </div>
+        <div class="field">
+          <label>T<sub>tk</sub> - Thời gian triển khai (phút)</label>
+          <input type="number" id="ttk" value="2" step="0.1" min="0">
+        </div>
+      </div>
+
+      <h3>Tính T<sub>tđ</sub> - Thời gian trên đường</h3>
+      <p class="formula">T<sub>tđ</sub> = L × 60 / V<sub>xe</sub> (phút)</p>
+      <div class="form-grid">
+        <div class="field">
+          <label>L - Quãng đường (km)</label>
+          <input type="number" id="distL" value="1.3" step="0.1" min="0">
+        </div>
+        <div class="field">
+          <label>V<sub>xe</sub> - Vận tốc xe chữa cháy (km/h)</label>
+          <input type="number" id="vxe" value="60" step="1" min="1">
+        </div>
+        <div class="field result-field">
+          <label>T<sub>tđ</sub> = <span id="ttdDisplay">1.3</span> phút</label>
+        </div>
+      </div>
+
+      <div class="result-box">
+        <strong>⏱ T<sub>td</sub> = <span id="ttdTotal">8.3</span> phút</strong>
+      </div>
+    </section>
+
+    <!-- Section 2: Flame Spread Radius -->
+    <section class="card">
+      <h2>2. Bán kính lan truyền ngọn lửa (R<sub>l</sub>)</h2>
+      <p class="formula">R<sub>l</sub> = 0,5 × min(T<sub>td</sub>, 10) × V<sub>l</sub> + T<sub>td</sub> × V<sub>l</sub> (m)</p>
+      <p class="note">Trong 10 phút đầu: vận tốc = ½V<sub>l</sub>. Sau 10 phút: vận tốc = V<sub>l</sub>.</p>
+      <div class="form-grid">
+        <div class="field">
+          <label>V<sub>l</sub> - Vận tốc lan truyền ngọn lửa (m/phút)</label>
+          <input type="number" id="vl" value="1.2" step="0.1" min="0">
+        </div>
+        <div class="field result-field">
+          <label>R<sub>l</sub> = <span id="rlDisplay">15.96</span> m</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Fire Area -->
+    <section class="card">
+      <h2>3. Diện tích đám cháy &amp; Diện tích chữa cháy</h2>
+      <div class="form-grid">
+        <div class="field">
+          <label>F<sub>đc</sub> - Diện tích đám cháy (m²)</label>
+          <input type="number" id="fdc" value="80" step="0.1" min="0">
+        </div>
+        <div class="field result-field">
+          <label>F<sub>cc</sub> = F<sub>đc</sub> = <span id="fccDisplay">80</span> m²</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Water Flow & Nozzles -->
+    <section class="card">
+      <h2>4. Lưu lượng nước &amp; Số lăng chữa cháy</h2>
+
+      <h3>Lưu lượng nước cần thiết (Q<sub>ct</sub>)</h3>
+      <p class="formula">Q<sub>ct</sub> = F<sub>cc</sub> × i<sub>ct</sub> (l/s)</p>
+      <div class="form-grid">
+        <div class="field">
+          <label>i<sub>ct</sub> - Cường độ phun nước cần thiết (l/s.m²)</label>
+          <input type="number" id="ict" value="0.1" step="0.01" min="0">
+        </div>
+        <div class="field result-field">
+          <label>Q<sub>ct</sub> = <span id="qctDisplay">8</span> l/s</label>
+        </div>
+      </div>
+
+      <h3>Số lăng chữa cháy (N<sub>L</sub>)</h3>
+      <p class="formula">N<sub>L</sub> = Q<sub>ct</sub> / q<sub>l</sub></p>
+      <div class="form-grid">
+        <div class="field">
+          <label>q<sub>l</sub> - Lưu lượng phun 01 lăng B (l/s)</label>
+          <input type="number" id="ql" value="3.5" step="0.1" min="0.1">
+        </div>
+        <div class="field result-field">
+          <label>N<sub>L</sub> = <span id="nlDisplay">3</span> lăng B (làm tròn lên)</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Fire Trucks -->
+    <section class="card">
+      <h2>5. Số xe &amp; Tổ chữa cháy</h2>
+      <p class="formula">N<sub>cc xe</sub> = N<sub>L</sub> / n<sub>l</sub></p>
+      <div class="form-grid">
+        <div class="field">
+          <label>n<sub>l</sub> - Số lăng B tối đa mỗi xe</label>
+          <input type="number" id="nlPerTruck" value="4" step="1" min="1">
+        </div>
+        <div class="field result-field">
+          <label>N<sub>cc xe</sub> = <span id="ntruckDisplay">1</span> xe</label>
+        </div>
+        <div class="field result-field">
+          <label>Số tổ chữa cháy = <span id="nteamDisplay">1</span> tổ</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: Cooling -->
+    <section class="card">
+      <h2>6. Làm mát</h2>
+      <p class="formula">Q<sub>lm</sub> = 0,5 × Q<sub>ct</sub> (l/s)</p>
+      <div class="form-grid">
+        <div class="field result-field">
+          <label>Q<sub>lm</sub> = <span id="qlmDisplay">4</span> l/s</label>
+        </div>
+      </div>
+
+      <p class="formula">N<sub>lm lăng</sub> = Q<sub>lm</sub> / q<sub>l</sub></p>
+      <div class="form-grid">
+        <div class="field result-field">
+          <label>N<sub>lm lăng</sub> = <span id="nlmNozzleDisplay">2</span> lăng B (làm tròn lên)</label>
+        </div>
+        <div class="field result-field">
+          <label>Số xe làm mát = <span id="nlmTruckDisplay">1</span> xe</label>
+        </div>
+        <div class="field result-field">
+          <label>Số tổ làm mát = <span id="nlmTeamDisplay">1</span> tổ</label>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 7: Summary -->
+    <section class="card summary">
+      <h2>📋 Tổng hợp kết quả</h2>
+      <table>
+        <tr><td>Tổng số lăng B</td><td><strong><span id="sumNozzle">4</span></strong> lăng</td></tr>
+        <tr><td>Trong đó chữa cháy</td><td><strong><span id="sumFight">3</span></strong> lăng B</td></tr>
+        <tr><td>Trong đó làm mát</td><td><strong><span id="sumCool">1</span></strong> lăng B</td></tr>
+        <tr><td>Xe chữa cháy</td><td><strong><span id="sumTruck">1</span></strong> xe</td></tr>
+        <tr><td>Xe làm mát</td><td><strong><span id="sumCoolTruck">1</span></strong> xe</td></tr>
+        <tr><td>Xe cứu thương</td><td><strong>1</strong> xe</td></tr>
+        <tr><td>Xe bồn chở nước</td><td><strong>1</strong> xe</td></tr>
+      </table>
+    </section>
+
+    <footer>
+      <p>Dựa trên tài liệu tính toán PCCC &amp; CNCH</p>
+    </footer>
+  </div>
+
+  <script src="calculator.js"></script>
+</body>
+</html>
